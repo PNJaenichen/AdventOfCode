@@ -1,3 +1,12 @@
+def key_check(key, rule):
+    for keys in rule[key]:
+        if 'shiny gold' in list(rule[key].keys()):
+            return True
+        elif key_check(keys,rule):
+            return True
+        else:
+            return key_check(keys,rule)
+
 # Get input
 with open('Day7a.txt') as f:
     instructions = []
@@ -23,5 +32,10 @@ for i in instructions:
             bag[parts[1][j][1]] = parts[1][j][0]
     rules[parts[0]] = bag
 
+gold_count = []
+
 for key in rules:
-    print(key, rules[key])
+    if key_check(key, rules):
+        gold_count.append(key)
+        
+print(gold_count, len(gold_count))
