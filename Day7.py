@@ -38,4 +38,8 @@ for key in rules:
     if key_check(key, rules):
         gold_count.append(key)
         
+<<<<<<< HEAD
 print(gold_count, len(gold_count))
+=======
+print(gold_count, len(gold_count))
+>>>>>>> c87746bacd41c32735663a2f1ea25c718bdd0687
