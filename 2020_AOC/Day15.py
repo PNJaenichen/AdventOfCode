@@ -6,14 +6,15 @@ def next_number(num, track):
         return 0
     else:
         # Else, get the difference of the most two most recent turns
-        turns = sorted(track[num], reverse=True)
-        return turns[0] - turns[1]
+        # turns = sorted(track[num], reverse=True)
+        # return turns[0] - turns[1]
+        return track[num][-1] - track[num][-2]
 
 # This is the example or puzzle inputs
 # puzzle = [0,3,6]
 puzzle = [18,11,9,0,5,1]
 
-# Initiate the turn track dictionary
+# Initiate the  track dictionary
 turn_tracker = {}
 
 # Initiate the count at 1 to track the turns
@@ -38,13 +39,13 @@ while count < 30000001:
     # If it is add the turn to it's list of turns
     else:
         turn_tracker[newNum].append(count)
+        while len(turn_tracker[newNum]) > 2:
+            turn_tracker[newNum].pop(0)
     # Print the answer to Part 1 when we reach turn 2020
     if count == 2020:
         print(f'The number on the 2020th turn is {newNum}')
     # Increase the turn count by 1
     count += 1
-    if count % 10000 == 0:
-        print(count)
 
 # Print the answer to Part 2 when we reach turn 30,000,000
 print(f'The number on the 30 milionth turn is {newNum}.')
