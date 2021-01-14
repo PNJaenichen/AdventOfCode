@@ -1,6 +1,8 @@
+from statistics import mode
+
 def seat_tester(value, rul):
     for rule in rul.values():
-        for sect in rule:
+        for sect in rule[0]:
             if sect[0] <= value <= sect[1]:
                 return True
     return False
@@ -19,7 +21,7 @@ with open('Day16a.txt') as f:
             section = line.split(':')[0]
             seats_one = tuple(int(x) for x in line.split(': ')[1].split(' or ')[0].split('-'))
             seats_two = tuple(int(x) for x in line.split(': ')[1].split(' or ')[1].split('-'))
-            rules[section] = [seats_one, seats_two]
+            rules[section] = [[seats_one, seats_two], []]
         elif 'your' in line:
             YOU = True
         elif YOU:
@@ -49,4 +51,10 @@ for ticket in near_tickets:
     if all(seat_tester(number, rules) for number in numbers):
         good_tickets.append(ticket)
 
-for 
+for ticket in good_tickets:
+    numbers = [int(x) for x in ticket.split(',')]
+    for i, number in enumerate(numbers):
+        for rule, value in rules.items():
+            for sect in value[0]:
+                if sect[0] <= number <= sect[1]:
+                    rules[rule][1].append(i)
